@@ -32,6 +32,8 @@ class path_pub():
         rospy.init_node('path_pubb', anonymous=True)
         self.parent_frame_id = rospy.get_param("~parent_frame_id", 'map')
         self.enable_altitude = rospy.get_param("/enable_altitude", False)
+        self.enable_file_write = rospy.get_param("/enable_file_write", False)
+        self.file_folder = rospy.get_param("/file_folder", "")
         
         self.input_topic_name1 = rospy.get_param("~input_topic_name1", '/fix')
         self.out_pose_topic_name1 = rospy.get_param("~out_pose_topic_name1", '/pose1')
@@ -78,12 +80,17 @@ class path_pub():
             pose.header.frame_id = self.parent_frame_id
             pose.pose.position.x = temp_tuple[0]  - self.offset1[0]
             pose.pose.position.y = temp_tuple[1]  - self.offset1[1]
+            z_value=msg.altitude - self.offset1[2]
             if self.enable_altitude:
-                pose.pose.position.z = msg.altitude - self.offset1[2]
+                pose.pose.position.z = z_value
             pose.pose.orientation.x = 0.0
             pose.pose.orientation.y = 0.0
             pose.pose.orientation.z = 0.0
             pose.pose.orientation.w = 1.0
+            if self.enable_file_write:
+                self.f1 = open(self.file_folder+self.out_path_topic_name1+'.csv', "a")
+                self.f1.write("%.6f %.6f %.6f %.6f\n"%( (msg.header.stamp.secs+msg.header.stamp.nsecs/1000000000.0) , pose.pose.position.x, pose.pose.position.y, z_value))
+                self.f1.close()
 
             self.pose_pub1.publish(pose)
             self.path1.poses.append(pose)
@@ -103,12 +110,17 @@ class path_pub():
             pose.header.frame_id = self.parent_frame_id
             pose.pose.position.x = temp_tuple[0]  - self.offset2[0]
             pose.pose.position.y = temp_tuple[1]  - self.offset2[1]
+            z_value=msg.altitude - self.offset2[2]
             if self.enable_altitude:
-                pose.pose.position.z = msg.altitude - self.offset2[2]
+                pose.pose.position.z = z_value
             pose.pose.orientation.x = 0.0
             pose.pose.orientation.y = 0.0
             pose.pose.orientation.z = 0.0
             pose.pose.orientation.w = 1.0
+            if self.enable_file_write:
+                self.f2 = open(self.file_folder+self.out_path_topic_name2+'.csv', "a")
+                self.f2.write("%.6f %.6f %.6f %.6f\n"%( (msg.header.stamp.secs+msg.header.stamp.nsecs/1000000000.0) , pose.pose.position.x, pose.pose.position.y, z_value))
+                self.f2.close()
 
             self.pose_pub2.publish(pose)
             self.path2.poses.append(pose)
@@ -128,12 +140,17 @@ class path_pub():
             pose.header.frame_id = self.parent_frame_id
             pose.pose.position.x = temp_tuple[0]  - self.offset3[0]
             pose.pose.position.y = temp_tuple[1]  - self.offset3[1]
+            z_value=msg.altitude - self.offset3[2]
             if self.enable_altitude:
-                pose.pose.position.z = msg.altitude - self.offset3[2]
+                pose.pose.position.z = z_value            
             pose.pose.orientation.x = 0.0
             pose.pose.orientation.y = 0.0
             pose.pose.orientation.z = 0.0
             pose.pose.orientation.w = 1.0
+            if self.enable_file_write:
+                self.f3 = open(self.file_folder+self.out_path_topic_name3+'.csv', "a")
+                self.f3.write("%.6f %.6f %.6f %.6f\n"%( (msg.header.stamp.secs+msg.header.stamp.nsecs/1000000000.0) , pose.pose.position.x, pose.pose.position.y, z_value))
+                self.f3.close()
 
             self.pose_pub3.publish(pose)
             self.path3.poses.append(pose)

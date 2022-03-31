@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <launch>
 
-  <param name ="/enable_altitude" value="True"/>
+  <param name ="/enable_altitude" value="False"/>
+  <param name ="/enable_file_write" value="True"/>
+  <param name ="/file_folder" value="$(find utm_to_pose_path)/path_csv"/>
 
   <node name="utm_to_pose_path_visualizer" pkg="utm_to_pose_path" type="utm_to_pose_path.py">
-    <param name="parent_frame_id" value="map"/>
+    <param name="parent_frame_id" value="world"/>
     <param name="input_topic_name1" value="/fix"/>
     <param name="out_pose_topic_name1" value="/pose1"/>
     <param name="out_path_topic_name1" value="/path1"/>
