@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<launch>
+
+  <param name ="/enable_altitude" value="True"/>
+
+  <node name="utm_to_pose_path_visualizer" pkg="utm_to_pose_path" type="utm_to_pose_path.py">
+    <param name="parent_frame_id" value="map"/>
+    <param name="input_topic_name1" value="/fix"/>
+    <param name="out_pose_topic_name1" value="/pose1"/>
+    <param name="out_path_topic_name1" value="/path1"/>
+    <param name="input_topic_name2" value="/one/mavros/global_position/raw/fix"/>
+    <param name="out_pose_topic_name2" value="/pose2"/>
+    <param name="out_path_topic_name2" value="/path2"/>
+    <param name="input_topic_name3" value="/two/mavros/global_position/raw/fix"/>
+    <param name="out_pose_topic_name3" value="/pose3"/>
+    <param name="out_path_topic_name3" value="/path3"/>
+  </node>
+</launch>
