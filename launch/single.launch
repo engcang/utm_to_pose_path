@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<launch>
+
+  <param name ="/enable_altitude" value="false"/>
+
+  <node name="utm_to_pose_path_visualizer" pkg="utm_to_pose_path" type="single.py" output="screen">
+    <param name="parent_frame_id" value="map"/>
+    <param name="input_topic_name" value="/tera/gnss"/>
+    <param name="out_pose_topic_name" value="/gps"/>
+    <param name="out_path_topic_name" value="/gps_path"/>
+  </node>
+</launch>
